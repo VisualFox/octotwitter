@@ -1,0 +1,74 @@
+Octobot:
+  queues:
+   - { name: twitter,
+       protocol: Redis,
+       host: localhost,
+       port: 6379,
+       priority: 1,
+       workers: 1
+     }
+  
+  email_enabled: false
+  
+  startup_hook: me.l1k3.octobot.twitter.StartupHook
+  shutdown_hook: me.l1k3.octobot.twitter.ShutdownHook
+
+octotwitter:
+  tasks: "DirectMessageToListUser:DirectMessage:UpdateStatus"
+
+octotwitter_factory:
+  storage: "MemoryStorage"
+  providers: "TaskProvider:StorageProvider:PropertyProvider:SettingsProvider"
+  default_consumer_key: "xxxxxxxxxxxxxxxxxxxxxxxx"
+  default_consumer_secret: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+octotwitter_redis_storage:
+  host: localhost
+  port: 6379
+  prefix: "OctoTwitter:Redis:Storage:"
+
+octotwitter_mongodb_storage:
+  host: localhost
+  port: 27017
+  db: "foo"
+  collection: "storage"
+  user: ""
+  password: ""
+  index_twitter_screen_name: "screen_name"
+
+octotwitter_property_provider:
+  path: "/etc/octobot/twitter"
+
+octotwitter_redis_provider:
+  host: localhost
+  port: 6379
+  prefix: "OctoTwitter:Redis:Provider:"
+
+octotwitter_mongodb_provider:
+  host: localhost
+  port: 27017
+  db: "foo"
+  collection: "provider"
+  user: ""
+  password: ""
+  index_twitter_screen_name: "screen_name"
+
+octotwitter_mysql_provider:
+  host: localhost
+  port: 3306
+  db: "foo"
+  user: "bar"
+  password: "xxxxxxxxxxxxxxxxxxx"
+  table: "twitter_account"
+  field_twitter_screen_name: "screen_name"
+  field_consumer_key: ""
+  field_consumer_secret: ""
+  field_access_token: "oauth_token"
+  field_access_token_secret: "oauth_token_secret"
+
+octotwitter_drupal_twitter_mysql_provider:
+  host: localhost
+  port: 3306
+  db: "foo"
+  user: "bar"
+  password: "xxxxxxxxxxxxxxxxxxx"
